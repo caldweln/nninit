@@ -7,7 +7,8 @@ local function calcFan(module)
   local typename = torch.type(module)
   if typename == 'nn.Linear' or
      typename == 'nn.LinearNoBias' or
-     typename == 'nn.LookupTable' then
+     typename == 'nn.LookupTable'  or
+     typename:find('ConnectLinear') then
     return module.weight:size(2), module.weight:size(1)
   elseif typename:find('TemporalConvolution') then
     return module.weight:size(2), module.weight:size(1)
